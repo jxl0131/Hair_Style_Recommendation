@@ -1,4 +1,7 @@
 # Hair Style Recommendation
+
+!!! note ""
+    该方法在[脸型数据集](https://www.kaggle.com/datasets/niten19/face-shape-dataset/data)/测试集/心形脸上的准确率仅为30%
 ----------------
 ## Hussein Sajid
 
