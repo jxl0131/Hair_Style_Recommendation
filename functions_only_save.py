@@ -68,7 +68,7 @@ def crop_face(image, eye_left=(0,0), eye_right=(0,0), offset_pct=(0.3,0.3), dest
     crop_size = (dest_sz[0]*scale, dest_sz[1]*scale)
     image = image.crop((int(crop_xy[0]), int(crop_xy[1]), int(crop_xy[0]+crop_size[0]), int(crop_xy[1]+crop_size[1])))
     # resize it
-    image = image.resize(dest_sz, Image.ANTIALIAS)
+    image = image.resize(dest_sz, Image.LANCZOS)
     return image
 
 def make_face_df_save(image_select,filenum,df):
@@ -118,12 +118,12 @@ def make_face_df_save(image_select,filenum,df):
         image =  Image.open(image_select)
         crop_image = crop_face(image, eye_left=(lex, ley), eye_right=(rex, rey), offset_pct=(0.34,0.34), dest_sz=(300,300))
         try:
-            crop_image.save(str(image_select)+"_NEW_cropped.jpg")
+            crop_image.save("tmp/_NEW_cropped.jpg")
         except:
             continue
-        #crop_image.show()
+        crop_image.show()
         
-        nn = str(image_select)+"_NEW_cropped.jpg"
+        nn = "tmp/_NEW_cropped.jpg"
         pts = []
         face = 0
         image = face_recognition.load_image_file(nn)
@@ -185,7 +185,7 @@ def make_face_df_save(image_select,filenum,df):
                     d.point(face_landmarks[facial_feature], fill = (255,255,255))
             
             
-            pil_image.save(str(image_select) + '_NEW_rotated_pts.jpg', 'JPEG', quality = 100)
+            pil_image.save('tmp/_NEW_rotated_pts.jpg', 'JPEG', quality = 100)
 
             # take_measurements width & height measurements
         msmt = []
@@ -294,7 +294,7 @@ def find_face_shape(df,file_num):
 
     mlp_crosstab = pd.crosstab(Y_test, y_pred, margins=True)
     
-    test_row = df.ix[file_num].values.reshape(1,-1)
+    test_row = df.loc[file_num].values.reshape(1,-1)
     test_row = scaler.transform(test_row)  
     test_shape = best_mlp.predict(test_row)
     return test_shape

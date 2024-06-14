@@ -59,6 +59,8 @@ def predict_user_face_shape():
     """Return a user face shape."""
     data = request.json
     test_photo = 'data/pics/recommendation_pics/' + data['file_name']
+    test_photo = 'data/pics/recommendation_pics/' + data['file_name']
+    
     file_num = 2035
     
     make_face_df_save(test_photo,file_num,df)
@@ -74,4 +76,14 @@ def output_image(img_filename):
     response.headers['Content-Type'] = 'image/png'
     return response
         
-        
+if __name__ == '__main__':
+    """Return face shape."""
+    data = request.json
+    test_photo = "/data/home/xinlongji/Hair_Style_Recommendation/data/pics/long/Ashlee Simpson (28).jpg"
+
+    
+    file_num = 2035
+    
+    make_face_df_save(test_photo,file_num,df)
+    face_shape = find_face_shape(df,file_num)
+    print(face_shape)
